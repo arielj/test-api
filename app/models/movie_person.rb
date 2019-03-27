@@ -7,5 +7,5 @@ class MoviePerson < ApplicationRecord
   enum role: [:actor, :director, :producer]
 
   validates :movie_id, :person_id, :role, presence: true
-  validates :movie_id, uniqueness: {scope: :person_id}
+  validates :movie_id, uniqueness: {scope: [:person_id, :role]}
 end

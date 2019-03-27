@@ -22,6 +22,22 @@ class Person < ApplicationRecord
     self[:aliases] = value.reject(&:blank?)
   end
 
+  def movies_as_actor_ids=(values)
+    self.movies_as_actor = Movie.where(id: values)
+  end
+
+  def movies_as_director_ids=(values)
+    self.movies_as_director = Movie.where(id: values)
+  end
+
+  def movies_as_producer_ids=(values)
+    self.movies_as_producer = Movie.where(id: values)
+  end
+
+  def to_label
+    "#{first_name} #{last_name}"
+  end
+
   def as_json(options={})
     to_merge = if options[:add_movies]
       { movies_as_actor: movies_as_actor, movies_as_director: movies_as_director,

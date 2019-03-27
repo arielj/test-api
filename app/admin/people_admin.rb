@@ -24,6 +24,12 @@ Trestle.resource(:people) do
       col(xs: 4) { aliases :aliases }
     end
 
+    row do
+      col(xs: 4) { movies_as :movies_as_actor }
+      col(xs: 4) { movies_as :movies_as_director }
+      col(xs: 4) { movies_as :movies_as_producer }
+    end
+
     # row do
     #   col(xs: 4) {
     #     fields_for :movies_as_director do

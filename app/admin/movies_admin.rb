@@ -14,8 +14,16 @@ Trestle.resource(:movies) do
   # Customize the form fields shown on the new/edit views.
   #
   form do |movie|
-    text_field :title
-    number_field :release_year
+    row do
+      col(xs: 6) { text_field :title }
+      col(xs: 6) { number_field :release_year }
+    end
+
+    row do
+      col(xs: 4) { people_as :actors }
+      col(xs: 4) { people_as :directors }
+      col(xs: 4) { people_as :producers }
+    end
   end
 
   # By default, all parameters passed to the update and create actions will be

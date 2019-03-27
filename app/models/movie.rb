@@ -11,6 +11,19 @@ class Movie < ApplicationRecord
 
   scope :search, -> (q) { q ? where('title LIKE ?', "%#{q}%") : self }
 
+  def actors_ids=(values)
+    self.actors = Person.where(id: values)
+  end
+
+  def directors_ids=(values)
+    self.directors = Person.where(id: values)
+  end
+
+  def producers_ids=(values)
+    self.producers = Person.where(id: values)
+  end
+
+
   def as_json(options={})
     to_merge = if options[:add_people]
       { actors: actors, directors: directors, producers: producers }

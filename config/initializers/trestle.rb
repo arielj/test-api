@@ -116,6 +116,8 @@ Trestle.configure do |config|
   #
   # config.form_field :custom, CustomFormField
   config.form_field :aliases, PersonAliases
+  config.form_field :movies_as, PersonMoviesAs
+  config.form_field :people_as, MoviePeopleAs
 
   # == Debugging Options
   #
