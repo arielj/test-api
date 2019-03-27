@@ -1,0 +1,19 @@
+h1 Probar API
+
+p
+  | Ej:
+  ul
+    li "/movies" (todas las películas)
+    li "/movies/1" (película ID 1)
+    li "/movies/1/people" (personas en película ID 1)
+    li "/movies?q=titulo" (películas con "titulo" en el titulo)
+    li "/people/1" (persona ID 1)
+    li "/movies/1?add_people=1" (incluye info de personas en lugar de sólo los ids)
+    li "/people/1?add_movies=1" (incluye info de las películas en lugar de sólo los ids)
+    li "/movies?page=2" (muestra la segunda página de resultados (de a 25))
+
+= form_tag '', id: 'url_form', remote: true do
+  = text_field_tag 'url', '', id: 'url_field'
+  = submit_tag 'Send'
+
+pre#result
