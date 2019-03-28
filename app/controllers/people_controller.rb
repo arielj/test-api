@@ -13,7 +13,7 @@ class PeopleController < ApplicationController
   end
 
   def update
-    @person.update_attributes(person_params)
+    @person.update_attributes(person_update_params)
     if @person.errors.any?
       render json: {errors: @person.errors.full_messages}
     else
@@ -24,10 +24,11 @@ class PeopleController < ApplicationController
   end
 
   def create
-    person = Person.create(person_params)
+    person = Person.create(person_create_params) #create with no movies
     if person.errors.any?
       render json: {errors: person.errors.full_messages}
     else
+      person.update_attributes(person_update_params) #set movies if any
       render json: person.to_json
     end
   rescue ActionController::ParameterMissing => e
@@ -50,7 +51,11 @@ private
     @movie ? @movie.people : Person
   end
 
-  def person_params
+  def person_update_params
     params.require(:person).permit(:first_name, :last_name, :aliases, :movies_as_actor_ids, :movies_as_director_ids, :movies_as_producer_ids)
+  end
+
+  def person_create_params
+    params.require(:person).permit(:first_name, :last_name, :aliases)
   end
 end

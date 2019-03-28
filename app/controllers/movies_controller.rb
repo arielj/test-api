@@ -13,7 +13,7 @@ class MoviesController < ApplicationController
   end
 
   def update
-    @movie.update_attributes(movie_params)
+    @movie.update_attributes(movie_update_params)
     if @movie.errors.any?
       render json: {errors: @movie.errors.full_messages}
     else
@@ -24,10 +24,11 @@ class MoviesController < ApplicationController
   end
 
   def create
-    movie = Movie.create(movie_params)
+    movie = Movie.create(movie_create_params)
     if movie.errors.any?
       render json: {errors: movie.errors.full_messages}
     else
+      movie.update_attributes(movie_update_params)
       render json: movie.to_json
     end
   rescue ActionController::ParameterMissing => e
@@ -49,7 +50,12 @@ private
     @person ? @person.movies : Movie
   end
 
-  def movie_params
+  def movie_update_params
     params.require(:movie).permit(:title, :release_year, :actors_ids, :directors_ids, :producers_ids)
   end
+
+  def movie_create_params
+    params.require(:movie).permit(:title, :release_year)
+  end
+
 end
