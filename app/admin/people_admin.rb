@@ -23,19 +23,13 @@ Trestle.resource(:people) do
       col(xs: 4) { aliases :aliases }
     end
 
-    row do
-      col(xs: 4) { movies_as :movies_as_actor }
-      col(xs: 4) { movies_as :movies_as_director }
-      col(xs: 4) { movies_as :movies_as_producer }
+    unless person.new_record?
+      row do
+        col(xs: 4) { movies_as :movies_as_actor }
+        col(xs: 4) { movies_as :movies_as_director }
+        col(xs: 4) { movies_as :movies_as_producer }
+      end
     end
-
-    # row do
-    #   col(xs: 4) {
-    #     fields_for :movies_as_director do
-    #       collection_select :movie, Movie.all, :id, :title, include_blank: true, label: 'asd'
-    #     end
-    #   }
-    # end
   end
 
   # By default, all parameters passed to the update and create actions will be

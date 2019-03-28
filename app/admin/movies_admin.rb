@@ -19,10 +19,12 @@ Trestle.resource(:movies) do
       col(xs: 6) { number_field :release_year }
     end
 
-    row do
-      col(xs: 4) { people_as :actors }
-      col(xs: 4) { people_as :directors }
-      col(xs: 4) { people_as :producers }
+    unless movie.new_record?
+      row do
+        col(xs: 4) { people_as :actors }
+        col(xs: 4) { people_as :directors }
+        col(xs: 4) { people_as :producers }
+      end
     end
   end
 
