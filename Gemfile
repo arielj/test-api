@@ -32,6 +32,7 @@ gem 'kaminari'
 gem 'roman-numerals'
 gem 'slim'
 gem 'bcrypt'
+gem 'jwt'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'

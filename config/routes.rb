@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     resources :movies
   end
 
+  post :auth, to: 'authentication#auth'
+
   root to: 'index#index'
 
 end

@@ -12,14 +12,17 @@ class Movie < ApplicationRecord
   scope :search, -> (q) { q ? where('title LIKE ?', "%#{q}%") : self }
 
   def actors_ids=(values)
+    values = split_values(values)
     self.actors = Person.where(id: values)
   end
 
   def directors_ids=(values)
+    values = split_values(values)
     self.directors = Person.where(id: values)
   end
 
   def producers_ids=(values)
+    values = split_values(values)
     self.producers = Person.where(id: values)
   end
 
@@ -35,5 +38,10 @@ class Movie < ApplicationRecord
     to_merge[:roman_release_year] = RomanNumerals.to_roman(release_year)
 
     super.merge(to_merge)
+  end
+
+private
+  def split_values(values)
+    values.is_a?(String) ? values.split(',').map(&:strip) : values
   end
 end

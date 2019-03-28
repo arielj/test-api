@@ -15,9 +15,8 @@ Trestle.resource(:people) do
   #
   form do |person|
     row do
-      col(xs: 4) { text_field :first_name }
-      col(xs: 4) { text_field :last_name }
-      col(xs: 4) { select :gender, Person.genders_for_select }
+      col(xs: 6) { text_field :first_name }
+      col(xs: 6) { text_field :last_name }
     end
 
     row do

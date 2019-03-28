@@ -13,17 +13,11 @@
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
+//= require get_form
+//= require login_form
+//= require person_form
+//= require movie_form
 
-document.addEventListener('turbolinks:load', function(){
-  form = document.getElementById('url_form');
-  form.addEventListener('ajax:beforeSend', function(e) {
-    url = document.getElementById('url_field').value;
-    fetch(url).then(function(data){
-      return data.json();
-    }).then(function(myJson) {
-      document.getElementById('result').innerText = JSON.stringify(myJson, undefined, 2);
-    });
-    e.preventDefault();
-    return false;
-  })
-})
+function byId(id) {
+  return document.getElementById(id);
+}

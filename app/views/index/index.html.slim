@@ -1,19 +1,55 @@
-h1 Probar API
-
-p
-  | Ej:
+.test_get
+  h1 Test API endpoints
   ul
-    li "/movies" (todas las películas)
-    li "/movies/1" (película ID 1)
-    li "/movies/1/people" (personas en película ID 1)
-    li "/movies?q=titulo" (películas con "titulo" en el titulo)
-    li "/people/1" (persona ID 1)
-    li "/movies/1?add_people=1" (incluye info de personas en lugar de sólo los ids)
-    li "/people/1?add_movies=1" (incluye info de las películas en lugar de sólo los ids)
-    li "/movies?page=2" (muestra la segunda página de resultados (de a 25))
+    li "/movies" (movies)
+    li "/movies/1" (movie with ID 1)
+    li "/movies/1/people" (people from movie with ID 1)
+    li "/people/1" (person with ID 1)
+    li "/movies/1?add_people=1" (movie with ID 1 including people info)
+    li "/people/1?add_movies=1" (person with ID 1 including movies info)
+    li "/movies?q=foo" (movies with "foo" on the title)
+    li "/people?q=foo" (people with "foo" on first or last names)
+    li "/movies?page=2" (/movies and /people supports pagination)
 
-= form_tag '', id: 'url_form', remote: true do
-  = text_field_tag 'url', '', id: 'url_field'
-  = submit_tag 'Send'
+  = form_tag '', id: 'url_form', remote: true do
+    = text_field_tag 'url', '', id: 'url_field'
+    = submit_tag 'Send'
 
-pre#result
+  pre#result
+
+.test_post
+  p To test update and create endpoints, get an auth token first (create an user at /admin/users)
+  = form_tag auth_path, id: 'login_form', remote: true do
+    = text_field_tag :login, '', placeholder: 'Login', required: true
+    = password_field_tag :password, '', placeholder: 'Password', required: true
+    = submit_tag 'Login'
+
+  #current_auth_token
+    ' Current auth token:
+    span None
+
+  .forms
+    = form_tag '', id: 'person_form', remote: true do
+      h3 Create/update person
+      = text_field_tag :person_url_field, '/people', placeholder: 'Person endpoint (create /people or update /people/:id)'
+      = text_field_tag :first_name, '', placeholder: 'First name'
+      = text_field_tag :last_name, '', placeholder: 'Last name'
+      = text_field_tag :aliases, '', placeholder: 'Aliases: alias1, alias 2,alias3'
+      = text_field_tag :movies_as_actor, '', placeholder: 'Movies ids as actor: 1,2, 3, 4 ,5'
+      = text_field_tag :movies_as_director, '', placeholder: 'Movies ids as director: 1,2, 3, 4 ,5'
+      = text_field_tag :movies_as_producer, '', placeholder: 'Movies ids as producer: 1,2, 3, 4 ,5'
+      = submit_tag 'Create or update person'
+
+      pre#person_result
+
+    = form_tag '', id: 'movie_form', remote: true do
+      h3 Create/update movie
+      = text_field_tag :movie_url_field, '/movies', placeholder: 'Movie endpoint (create /movies or update /movies/:id)'
+      = text_field_tag :title, '', placeholder: 'Title'
+      = text_field_tag :release_year, '', placeholder: 'Release year'
+      = text_field_tag :actors, '', placeholder: 'Actors ids: 1,2, 3, 4 ,5'
+      = text_field_tag :directors, '', placeholder: 'Directors ids: 1,2, 3, 4 ,5'
+      = text_field_tag :producers, '', placeholder: 'Producres ids: 1,2, 3, 4 ,5'
+      = submit_tag 'Create or update movie'
+
+      pre#movie_result

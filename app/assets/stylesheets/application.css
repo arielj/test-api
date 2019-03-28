@@ -13,3 +13,28 @@
  *= require_tree .
  *= require_self
  */
+
+#wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin: 0 auto;
+}
+.test_get, .test_post {
+  flex: 49% 0 0;
+}
+.test_post .forms {
+  display: flex;
+  justify-content: space-between;
+}
+.test_post .forms form {
+  flex: 49% 0 0;
+}
+.test_post .forms input[type=text] {
+  display: block;
+  width: 100%;
+}
+#current_auth_token {
+  word-break: break-all;
+  font-family: monospace;
+}

@@ -1,8 +1,7 @@
 class Person < ApplicationRecord
   serialize :aliases
-  enum gender: [:male, :female]
 
-  validates :first_name, :last_name, :gender, presence: true
+  validates :first_name, :last_name, presence: true
 
   has_many :movie_people
   has_many :movies, through: :movie_people
@@ -18,19 +17,23 @@ class Person < ApplicationRecord
     self[:aliases] ||= []
   end
 
-  def aliases=(value)
-    self[:aliases] = value.reject(&:blank?)
+  def aliases=(values)
+    values = split_values(values)
+    self[:aliases] = values.reject(&:blank?)
   end
 
   def movies_as_actor_ids=(values)
+    values = split_values(values)
     self.movies_as_actor = Movie.where(id: values)
   end
 
   def movies_as_director_ids=(values)
+    values = split_values(values)
     self.movies_as_director = Movie.where(id: values)
   end
 
   def movies_as_producer_ids=(values)
+    values = split_values(values)
     self.movies_as_producer = Movie.where(id: values)
   end
 
@@ -51,10 +54,8 @@ class Person < ApplicationRecord
     super.merge(to_merge)
   end
 
-
-
-  def self.genders_for_select
-    ds = I18n.t('person.genders')
-    [[ds[0], :male], [ds[1], :female]]
+private
+  def split_values(values)
+    values.is_a?(String) ? values.split(',').map(&:strip) : values
   end
 end
