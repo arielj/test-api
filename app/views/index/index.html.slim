@@ -18,7 +18,7 @@
   pre#result
 
 .test_post
-  p To test update and create endpoints, get an auth token first (create an user at /admin/users)
+  p To test update and create endpoints, get an auth token first (user/pass="apiuser"/"123456" or create an user at /admin/users)
   = form_tag auth_path, id: 'login_form', remote: true do
     = text_field_tag :login, '', placeholder: 'Login', required: true
     = password_field_tag :password, '', placeholder: 'Password', required: true
